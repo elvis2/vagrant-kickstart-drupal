@@ -142,13 +142,6 @@ echo "extension=uploadprogress.so" | sudo tee /etc/php5/apache2/conf.d/uploadpro
 sudo service mysql restart
 sudo /etc/init.d/apache2 restart
 
-# ################################################################################ Replace localhost/index.html
-# Add interesting default document for localhost
-sudo rm /var/www/index.html
-sudo cp /vagrant/config/index.php /var/www/index.php
-sudo chmod -R u=rwX,g=rX,o= /var/www
-sudo chown -R vagrant:www-data /var/www
-
 # ################################################################################ Configure phpmyadmin
 # show hex data on detail pages.
 echo "
