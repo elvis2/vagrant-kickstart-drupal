@@ -1,7 +1,7 @@
 Kickstart a Drupal development environment
 ==========================================
 
-This is a meager attempt to make the traditional Drupal Quickstart Development Environment (QS DE) virtualbox applianace (See http://drupal.org/project/quickstart) auto install via Vagrant on Ubuntu 12.04.
+This is a meager attempt to make the traditional Drupal Quickstart Development Environment (QS DE) virtualbox applianace (See http://drupal.org/project/quickstart) auto install via Vagrant on Ubuntu 12.04 LTS 64-bit.
 
 The Vagrantfile has many variables you can configure to make this vagrant more "yours".
 
