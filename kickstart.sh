@@ -1,5 +1,7 @@
 #!/bin/bash
 
+DRUSH_VERSION="7.x-5.1"
+
 ## The last password you'll ever need.
 # add current user to sudoers file - careful, this line could brick the box.
 echo "$USER ALL=(ALL) NOPASSWD: ALL" | sudo tee -a /etc/sudoers.d/vagrant > /dev/null
@@ -43,13 +45,14 @@ sudo chmod -R ug=rwX,o= ~/websites
 # Define package names, and debconf config values.  Keep package names in sync.
 LAMP_APACHE="libapache2-mod-php5 php-pear"
 LAMP_MYSQL="mysql-server libmysqlclient18 mysql-common"
+echo mysql-server-5.5 mysql-server/root_password        password kickstart | sudo debconf-set-selections
+echo mysql-server-5.5 mysql-server/root_password_again  password kickstart | sudo debconf-set-selections
+
 #LAMP_PHP="php5 php5-dev php5-common php5-xsl php5-curl php5-gd php5-pgsql php5-cli php5-mcrypt php5-sqlite php5-mysql php-pear php5-imap php5-xdebug php-apc"
 LAMP_PHP="php5 php-apc php5-cli php5-curl php5-gd php5-imap php5-mysql php5-mcrypt php5-sqlite php5-xdebug php5-xsl"
 LAMP_TOOLS="phpmyadmin"
-MISC="unzip zip"
+MISC="unzip zip git-core"
 
-echo mysql-server-5.5 mysql-server/root_password        password kickstart | sudo debconf-set-selections
-echo mysql-server-5.5 mysql-server/root_password_again  password kickstart | sudo debconf-set-selections
 echo phpmyadmin       phpmyadmin/reconfigure-webserver  text     apache2    | sudo debconf-set-selections
 echo phpmyadmin       phpmyadmin/dbconfig-install       boolean  true       | sudo debconf-set-selections
 echo phpmyadmin       phpmyadmin/app-password-confirm   password kickstart | sudo debconf-set-selections
@@ -166,44 +169,36 @@ ini_set('session.gc_maxlifetime', \$cfg['LoginCookieValidity']);
 " | sudo tee -a /etc/phpmyadmin/config.inc.php
 
 
-# ################################################################################ user management
-
-echo "This is where Quickstart websites go.
-
-Quickstart includes some command line scripts to automate site creation.
-
-To create a site (dns, apache, code, database, and install):
-
-  1) Start a terminal (top left icon, click the black box with a [>_] )
-
-  2) Paste in this command (don't include the $)
-    $ drush kickstart-create --domain=newsite.dev
-         or
-    $ drush qc --domain=newsite.dev
-
-To delete a site:
-  $ drush kickstart-delete --domain=newsite.dev
-         or
-  $ drush qd --domain=newsite.dev
-
-For more information:
-  $ drush help kickstart-create
-  $ drush help kickstart-destroy
-  Or goto http://drupal.org/node/819398" > ~/websites/README.txt
-
-
 # ################################################################################ Drush
-# Install drush
 
-sudo apt-get -yq install drush
-sudo drush dl -y drush-7.x-5.x-dev --destination='/usr/share'
+
+# Install drush
+cd ~
+git clone http://git.drupal.org/project/drush.git
+cd drush
+git checkout $DRUSH_VERSION
+
+#mdrmike @FIXME (don't need once pear install works):
+chmod u+x ~/drush/drush
+sudo ln -s ~/drush/drush /usr/local/bin/drush
+
+# Install drush make and drush site-install6
+mkdir ~/.drush
+cd ~/.drush
 
 # Install drush kickstart
-mkdir ~/.drush
-mkdir ~/.drush/kickstart
-
-cp /vagrant/drush/* ~/.drush/kickstart/
+ln -s /vagrant/drush ~/.drush/kickstart
 cp /vagrant/make_templates/*.make ~/websites
+
+# sudo apt-get -yq install drush
+# sudo drush dl -y drush-7.x-5.x-dev --destination='/usr/share'
+
+# # Install drush kickstart
+# mkdir ~/.drush
+# mkdir ~/.drush/kickstart
+
+# cp /vagrant/drush/* ~/.drush/kickstart/
+# cp /vagrant/make_templates/*.make ~/websites
 
 # ################################################################################ Email catcher
 
@@ -262,7 +257,7 @@ mkdir /home/vagrant/websites/logs/xhprof
 
 wget -nv http://pecl.php.net/get/xhprof-0.9.2.tgz
 tar xvf xhprof-0.9.2.tgz
-mv xhprof-0.9.2 /home/vagrant/websites/logs/xhprof
+mv xhprof-0.9.2/* /home/vagrant/websites/logs/xhprof
 rm xhprof-0.9.2.tgz
 rm package.xml
 
