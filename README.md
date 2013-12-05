@@ -16,7 +16,7 @@ This is a meager attempt to make the traditional Drupal Quickstart Development E
 
 ## Comments
 
-- I have used the Drupal Quickstart for years. I take no credit for all the hard work that was / is put in (by over developers) to make the QS DE
+- I have used the Drupal Quickstart for years. I take no credit for all the hard work that was / is put in (by other developers) to make the QS DE.
 
 - Vagrant Kickstart Drupal is headless, meaning you will not get an Ubuntu GUI to login too. All you developement tools need to be available locally, unless you like to code in VI or another text editor.
 
