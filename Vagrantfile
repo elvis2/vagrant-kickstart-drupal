@@ -4,12 +4,12 @@
 VAGRANTFILE_API_VERSION = "2"
 
 box      = 'box'
-boxurl      = 'http://files.vagrantup.com/precise64.box'
+boxurl   = 'http://files.vagrantup.com/precise64.box'
 hostname = 'box'
 domain   = 'dev'
 ip       = '192.168.0.42'
-ram      = '2048'
-cores	 = '2'
+ram      = '4096'
+cores	   = '2'
 sync_source = '../../'
 sync_target = '/home/vagrant'
 

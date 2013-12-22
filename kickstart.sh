@@ -285,6 +285,5 @@ echo "Alias /xhprof /home/vagrant/websites/logs/xhprof/xhprof_html
 
 chmod -R 770 /home/vagrant/websites/logs/xhprof
 
-
 # ################################################################################ Restart apache
 sudo apache2ctl restart
