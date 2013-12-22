@@ -249,7 +249,7 @@ function kickstart_create_code($domain, $codepath, $makefile) {
  *   The code path.
  */
 function kickstart_destroy_code($codepath) {
-  // Only delete a web folder. "drush qsd --codepath=/" would be bad.
+  // Only delete a web folder. "drush kd --codepath=/" would be bad.
   if (!file_exists("{$codepath}/index.php")) {
     drush_log(dt('Invalid code path detected. Files were not deleted.'), 'warning');
     return;

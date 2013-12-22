@@ -60,14 +60,14 @@ function kickstart_drush_command() {
     ),
     'examples' => array(
       'Create D7 site in one command: setup dns, apache, create db, download d6, run installer, open in firefox' => 'drush kickstart-create --domain=example1.dev',
-      'Quick D6 site' => 'drush qsc --domain=example2.dev --makefile=d6.make',
+      'Quick D6 site' => 'drush kc --domain=example2.dev --makefile=d6.make',
       'Just DNS (/etc/hosts)' => 'drush kickstart-create dns --domain=example.dev',
       'Just apache (/etc/apache2/sites-enabled/)' => 'drush kickstart-create apache --domain=example.dev --codepath=/path/to/drupal',
       'Just database (mysql)' => 'drush kickstart-create database --domain=example.dev',
       'Just code (drush make)' => 'drush kickstart-create code --domain=example.dev',
       'Just install (or quick reinstall)' => 'drush kickstart-create install --domain=example.dev',
     ),
-    'aliases' => array('qsc'),
+    'aliases' => array('kc'),
     'bootstrap' => DRUSH_BOOTSTRAP_DRUSH,
   );
 
@@ -81,7 +81,7 @@ function kickstart_drush_command() {
       'codepath' => 'Path to drupal code. Defaults to ~/websites/[domain]',
     ),
     'examples' => array(
-      'Simplest format' => 'drush qsd --domain=example.dev',
+      'Simplest format' => 'drush kd --domain=example.dev',
       'Complete format' => 'drush kickstart-destroy all --domain=example.dev --codepath=/path/to/drupal',
       'Remove DNS (/etc/hosts)' => 'drush kickstart-destroy dns --domain=example.dev',
       'Remove Apache (/etc/apache2/sites-enabled/)' => 'drush kickstart-destroy apache --domain=example.dev',
@@ -89,7 +89,7 @@ function kickstart_drush_command() {
       'Delete code and files (~/webistes/<domain>)' => 'drush kickstart-destroy code --domain=example.dev --codepath=/path/to/drupal',
       'Reset for reinstall (~/webistes/<domain>)' => 'drush kickstart-destroy install --domain=example.dev --codepath=/path/to/drupal',
     ),
-    'aliases' => array('qsd'),
+    'aliases' => array('kd'),
     'bootstrap' => DRUSH_BOOTSTRAP_DRUSH,
   );
 
@@ -105,10 +105,10 @@ function kickstart_drush_command() {
       'codepath' => 'Path to drupal code. Defaults to ~/websites/[domain]',
     ),
     'examples' => array(
-      'Simplest format' => 'drush qsf --domain=example.dev',
+      'Simplest format' => 'drush kfix --domain=example.dev',
       'Use different codepath' => 'drush kickstart-fixperms --domain=example.dev --codepath=/path/to/drupal',
     ),
-    'aliases' => array('qsf'),
+    'aliases' => array('kfix'),
     'bootstrap' => DRUSH_BOOTSTRAP_DRUSH,
   );
   return $items;
